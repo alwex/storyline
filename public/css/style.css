@@ -1,0 +1,25 @@
+body {
+    padding: 15px;
+    background-color: #2B292E;
+}
+
+#storyline {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.red {
+    background-color: red;
+}
+
+.blue {
+    background-color: blue;
+}
+
+.silver {
+    background-color: silver;
+}
+
+.separator {
+    width:10px;
+}

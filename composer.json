@@ -1,0 +1,23 @@
+{
+    "name": "alwex/storyline",
+    "description": "online storyline creator",
+    "type": "project",
+    "require": {
+        "silex/silex": "^2.0",
+        "doctrine/dbal": "~2.2",
+        "doctrine/orm": "2.4.*",
+        "monolog/monolog": "^1.22"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7"
+    },
+    "autoload": {
+        "psr-0": {"": "src/"}
+    },
+    "authors": [
+        {
+            "name": "Alexandre Guidet",
+            "email": "alwex@free.fr"
+        }
+    ]
+}
