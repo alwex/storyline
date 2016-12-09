@@ -15,6 +15,11 @@ use Symfony\Component\HttpFoundation\Response;
 $app = new Application();
 $app['debug'] = true;
 
+$dbFile = __DIR__ . '/../app.db';
+if (!file_exists($dbFile)) {
+    touch($dbFile);
+}
+
 $app->register(new Silex\Provider\MonologServiceProvider(), array(
     'monolog.logfile' => __DIR__ . '/../app.log',
 ));
@@ -22,7 +27,7 @@ $app->register(new Silex\Provider\MonologServiceProvider(), array(
 $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
     'db.options' => array(
         'driver' => 'pdo_sqlite',
-        'path' => __DIR__ . '/../app.db',
+        'path' => $dbFile,
     )
 ));
 
