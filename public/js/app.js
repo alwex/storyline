@@ -65,6 +65,7 @@ function onPasteTriggered(e) {
 }
 
 function load() {
+    $('#overlay').removeClass('hidden')
     $.ajax({
         type: 'GET',
         url: '/cards',
@@ -87,6 +88,7 @@ function load() {
             $(this).parents('.card').first().remove()
         })
 
+        $('#overlay').addClass('hidden')
         //resize()
     })
 }
@@ -122,15 +124,22 @@ function save() {
         }
         cards.push(card)
     })
-
-    $.ajax({
-        type: 'POST',
-        url: '/cards',
-        data: {cards: JSON.stringify(cards)},
-        dataType: 'json'
-    }).done(function () {
-    })
-
+    console.log(cards)
+    if (cards.length > 0) {
+        $('#overlay').removeClass('hidden')
+        $.ajax({
+            type: 'POST',
+            url: '/cards',
+            data: {cards: JSON.stringify(cards)},
+            dataType: 'json'
+        }).done(function () {
+            console.log('passage')
+            $('#overlay').addClass('hidden')
+        }).fail(function () {
+            alert('une erreur est survenue')
+            console.log('failure')
+        })
+    }
 }
 
 // Simple list

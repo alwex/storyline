@@ -53,7 +53,7 @@ $app->post('/cards', function (Request $request) use ($app) {
         ]);
     }
 
-    return new Response('save ok', 201);
+    return new Response(json_encode('save ok'), 201);
 });
 
 $app->run();
