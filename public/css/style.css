@@ -7,6 +7,10 @@ body {
     background-size: cover;
 }
 
+.navbar-inverse {
+    border-color: grey;
+}
+
 #storyline {
     display: flex;
     flex-wrap: wrap;
@@ -53,4 +57,8 @@ body {
 }
 .panel-primary {
     border-color: grey;
+}
+
+.card img {
+    width: 100%;
 }

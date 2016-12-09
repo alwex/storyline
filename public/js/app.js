@@ -51,7 +51,7 @@ function onPasteTriggered(e) {
                 //base64 encoded image
                 //Create an image element and append it to the content editable div
                 var img = document.createElement("img")
-                img.setAttribute('class', "img-responsive")
+                img.className = "img-responsive"
                 img.src = result
                 var tmp = document.createElement("div");
                 tmp.appendChild(img);
