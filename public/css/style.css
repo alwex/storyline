@@ -39,3 +39,7 @@ body {
 .panel-primary {
     border-color: grey;
 }
+
+.card img {
+    width: 100%;
+}
