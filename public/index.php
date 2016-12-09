@@ -28,31 +28,24 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
 
 $app['db']->query('CREATE TABLE IF NOT EXISTS cards (id INTEGER PRIMARY KEY, title TEXT, content TEXT, pos INTEGER)');
 
-$app->get('/cards', function () {
-    $output = 'some posts';
+$app->get('/cards', function () use ($app) {
+    $cards = $app['db']->fetchAll('SELECT * FROM cards');
 
-    return new Response(json_encode($output));
+    return new Response(json_encode($cards));
 });
 
 $app->post('/cards', function (Request $request) use ($app) {
     $cards = json_decode($request->get('cards'));
 
-//    $app['db']->query('DELETE FROM cards');
+    $app['db']->query('DELETE FROM cards');
     foreach ($cards as $index => $card) {
         $app['monolog']->addDebug('Testing the Monolog logging.' . $index);
 
-        $q = $app['db']->createQueryBuilder();
-        $q->insert('cards')
-            ->values([
-                'title' => '?',
-                'content' => '?',
-                'pos' => '?',
-            ])
-            ->setParameter(0, $card->title)
-            ->setParameter(1, $card->content)
-            ->setParameter(2, $index);
-
-        $app['db']->query($q->toString());
+        $app['db']->insert('cards', [
+            'title' => $card->title,
+            'content' => $card->content,
+            'pos' => $index
+        ]);
     }
 
     return new Response('save ok', 201);

@@ -23,3 +23,7 @@ body {
 .separator {
     width:10px;
 }
+
+#card-template {
+    display: none;
+}

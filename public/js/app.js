@@ -40,7 +40,6 @@ function pasteHtmlAtCaret (html) {
 function onPasteTriggered (e) {
   if (typeof e.clipboardData != 'undefined') {
     var copiedData = e.clipboardData.items[ 0 ]
-    console.log(copiedData)
     // Get the clipboard data
     // If the clipboard data is of type image, read the data/
     if (copiedData.type.indexOf("image") == 0) {
@@ -56,7 +55,6 @@ function onPasteTriggered (e) {
         img.src = result
         var tmp = document.createElement("div");
         tmp.appendChild(img);
-        console.log(tmp.innerHTML);
         pasteHtmlAtCaret(tmp.innerHTML)
 
       };
@@ -65,6 +63,28 @@ function onPasteTriggered (e) {
     }
   }
 }
+
+function load () {
+  $.ajax({
+    type: 'GET',
+    url: '/cards',
+    dataType: 'json'
+  }).done(function (cards) {
+
+    var container = $('#storyline')
+    var emptyCard = $('#card-template')
+
+    $(cards).each(function (index, card) {
+      var newCard = $(emptyCard).clone()
+
+      $(newCard).attr('id', '')
+      $(newCard).find('.panel-title').append(card.title)
+      $(newCard).find('.panel-body').append(card.content)
+      $(container).append(newCard)
+    })
+  })
+}
+load();
 
 function save () {
   var cards = []
@@ -80,22 +100,19 @@ function save () {
     cards.push(card)
   })
 
-  console.log(cards)
-
   $.ajax({
     type: 'POST',
     url: '/cards',
     data: { cards: JSON.stringify(cards) },
     dataType: 'json'
   }).done(function () {
-    console.log('ok')
   })
 
 }
 
 $('.card-delete').click(function () {
-  console.log('delete')
   $(this).parents('.card').first().remove()
+  save();
 })
 
 // Simple list
