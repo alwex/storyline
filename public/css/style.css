@@ -1,6 +1,10 @@
 body {
     padding: 15px;
     background-color: #2B292E;
+    padding-top: 70px;
+    background: url('/images/background.jpg') no-repeat fixed;
+    -webkit-background-size: cover;
+    background-size: cover;
 }
 
 #storyline {
@@ -26,4 +30,12 @@ body {
 
 #card-template {
     display: none;
+}
+
+.panel-primary .panel-heading {
+    background-color: #333;
+    border-color: grey;
+}
+.panel-primary {
+    border-color: grey;
 }
