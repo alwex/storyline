@@ -79,6 +79,7 @@ function load() {
             var newCard = $(emptyCard).clone()
 
             $(newCard).attr('id', '')
+            $(newCard).addClass(card.kind || 'story')
             $(newCard).find('.panel-title').append(card.title)
             $(newCard).find('.panel-body').append(card.content)
             $(container).append(newCard)
@@ -94,7 +95,7 @@ function load() {
 }
 load();
 
-function create() {
+function create(type) {
     var container = $('#storyline')
     var emptyCard = $('#card-template')
     var newCard = $(emptyCard).clone()
@@ -102,6 +103,7 @@ function create() {
     $(newCard).attr('id', '')
     $(newCard).find('.panel-title').append('title')
     $(newCard).find('.panel-body').append('')
+    $(newCard).addClass(type)
     $(container).append(newCard)
 
     $(newCard).find('.card-delete').click(function () {
@@ -115,12 +117,14 @@ function save() {
     var cards = []
     $('.card:not(#card-template)').each(function (index, card) {
 
+        var kind = $(card).hasClass('story') ? 'story' : 'level'
         var title = $(card).find('.panel-title').text()
         var content = $(card).find('.panel-body').html()
 
         var card = {
             title: title,
-            content: content
+            content: content,
+            kind: kind
         }
         cards.push(card)
     })
@@ -153,9 +157,14 @@ $('#button-save').click(function (e) {
     save()
 })
 
-$('#button-new').click(function (e) {
+$('#button-new-story').click(function (e) {
     e.preventDefault()
-    create()
+    create('story')
+})
+
+$('#button-new-level').click(function (e) {
+    e.preventDefault()
+    create('level')
 })
 
 function resize() {

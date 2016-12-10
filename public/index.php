@@ -31,7 +31,7 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
     )
 ));
 
-$app['db']->query('CREATE TABLE IF NOT EXISTS cards (id INTEGER PRIMARY KEY, title TEXT, content TEXT, pos INTEGER)');
+$app['db']->query('CREATE TABLE IF NOT EXISTS cards (id INTEGER PRIMARY KEY, title TEXT, content TEXT, pos INTEGER, kind TEXT)');
 
 $app->get('/cards', function () use ($app) {
     $cards = $app['db']->fetchAll('SELECT * FROM cards');
@@ -49,6 +49,7 @@ $app->post('/cards', function (Request $request) use ($app) {
         $app['db']->insert('cards', [
             'title' => $card->title,
             'content' => $card->content,
+            'kind' => $card->kind,
             'pos' => $index
         ]);
     }

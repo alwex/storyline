@@ -51,11 +51,17 @@ body {
     display: none;
 }
 
-.panel-primary .panel-heading {
+.story .panel-primary .panel-heading {
     background-color: #333;
+}
+.story .panel-primary {
     border-color: grey;
 }
-.panel-primary {
+
+.level .panel-primary .panel-heading {
+    background-color: rebeccapurple;
+}
+.level .panel-primary {
     border-color: grey;
 }
 
